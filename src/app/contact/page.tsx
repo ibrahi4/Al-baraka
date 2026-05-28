@@ -228,7 +228,7 @@ export default function ContactPage() {
                           </label>
                           <Select 
                             value={formData.service} 
-                            onValueChange={(value) => setFormData({ ...formData, service: value })}
+                            onValueChange={(value: string | null) => setFormData({ ...formData, service: value ?? "" })}
                             required
                           >
                             <SelectTrigger className="h-12">
@@ -250,7 +250,7 @@ export default function ContactPage() {
                           </label>
                           <Select 
                             value={formData.area} 
-                            onValueChange={(value) => setFormData({ ...formData, area: value })}
+                            onValueChange={(value: string | null) => setFormData({ ...formData, area: value ?? "" })}
                             required
                           >
                             <SelectTrigger className="h-12">
@@ -383,3 +383,5 @@ export default function ContactPage() {
     </>
   );
 }
+
+
