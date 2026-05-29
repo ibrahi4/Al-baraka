@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, Phone, MessageCircle, MapPin, Clock } from "lucide-react";
@@ -58,8 +59,15 @@ export function Header() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 shrink-0">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#1B2A41] rounded-lg flex items-center justify-center">
-                <span className="text-[#C9A961] font-black text-xl lg:text-2xl">ب</span>
+              <div className="relative w-10 h-10 lg:w-12 lg:h-12">
+                <Image
+                  src="/icon-512.png"
+                  alt={siteConfig.name}
+                  fill
+                  className="object-contain"
+                  priority
+                  sizes="(max-width: 1024px) 40px, 48px"
+                />
               </div>
               <div className="flex flex-col leading-tight">
                 <span className="text-[#1B2A41] font-bold text-sm lg:text-base">شركة البركة</span>
@@ -129,8 +137,14 @@ export function Header() {
                   {/* Mobile Menu Header */}
                   <div className="bg-[#1B2A41] text-white p-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 bg-[#C9A961] rounded-lg flex items-center justify-center">
-                        <span className="text-[#1B2A41] font-black text-2xl">ب</span>
+                      <div className="relative w-12 h-12 bg-white rounded-lg p-1">
+                        <Image
+                          src="/icon-512.png"
+                          alt={siteConfig.name}
+                          fill
+                          className="object-contain p-1"
+                          sizes="48px"
+                        />
                       </div>
                       <div>
                         <div className="font-bold">شركة البركة</div>

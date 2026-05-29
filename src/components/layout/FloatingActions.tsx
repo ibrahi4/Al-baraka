@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { MessageCircle, ArrowUp, X, Phone } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackPhoneCall, trackWhatsApp } from "@/components/analytics/GoogleAnalytics";
 
 export function FloatingActions() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -19,7 +20,6 @@ export function FloatingActions() {
   }, []);
 
   useEffect(() => {
-    // إخفاء الـ pulse بعد 10 ثواني
     const timer = setTimeout(() => setShowPulse(false), 10000);
     return () => clearTimeout(timer);
   }, []);
@@ -48,13 +48,12 @@ export function FloatingActions() {
               transition={{ duration: 0.2 }}
               className="bg-white rounded-2xl shadow-2xl border border-gray-200 w-[300px] sm:w-[340px] overflow-hidden"
             >
-              {/* Header */}
               <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-4">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <div className="relative">
-                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                        <span className="text-green-600 font-black text-xl">ب</span>
+                      <div className="relative w-12 h-12 bg-white rounded-full p-1.5 overflow-hidden">
+                        <img src="/icon-512.png" alt="البركة" className="w-full h-full object-contain" />
                       </div>
                       <div className="absolute -bottom-0.5 -left-0.5 w-4 h-4 bg-green-400 border-2 border-white rounded-full" />
                     </div>
@@ -78,7 +77,6 @@ export function FloatingActions() {
                 </p>
               </div>
 
-              {/* Quick Messages */}
               <div className="p-4 bg-gray-50 max-h-[280px] overflow-y-auto">
                 <div className="text-xs text-gray-500 mb-3 font-semibold">رسائل سريعة:</div>
                 <div className="space-y-2">
@@ -88,6 +86,7 @@ export function FloatingActions() {
                       href={`https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(msg)}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackWhatsApp("floating_quick_msg")}
                       className="block bg-white hover:bg-green-50 border border-gray-200 hover:border-green-500 p-3 rounded-xl text-sm text-gray-700 hover:text-green-700 transition-all"
                     >
                       {msg}
@@ -96,12 +95,12 @@ export function FloatingActions() {
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="p-4 border-t border-gray-200 bg-white">
                 <a
                   href={`https://wa.me/${siteConfig.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWhatsApp("floating_main")}
                   className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl font-bold transition-colors"
                 >
                   <MessageCircle className="w-5 h-5" />
@@ -109,6 +108,7 @@ export function FloatingActions() {
                 </a>
                 <a
                   href={`tel:${siteConfig.phone}`}
+                  onClick={() => trackPhoneCall("floating_widget")}
                   className="flex items-center justify-center gap-2 mt-2 text-[#1B2A41] hover:text-[#C9A961] py-2 text-sm font-semibold transition-colors"
                 >
                   <Phone className="w-4 h-4" />
@@ -119,7 +119,6 @@ export function FloatingActions() {
           )}
         </AnimatePresence>
 
-        {/* WhatsApp Button */}
         <div className="relative">
           {showPulse && !whatsappOpen && (
             <>
@@ -128,7 +127,10 @@ export function FloatingActions() {
             </>
           )}
           <button
-            onClick={() => setWhatsappOpen(!whatsappOpen)}
+            onClick={() => {
+              setWhatsappOpen(!whatsappOpen);
+              if (!whatsappOpen) trackWhatsApp("floating_open");
+            }}
             className="relative w-14 h-14 sm:w-16 sm:h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
             aria-label="تواصل عبر واتساب"
           >
@@ -141,7 +143,6 @@ export function FloatingActions() {
             )}
           </button>
           
-          {/* Notification Badge */}
           {!whatsappOpen && (
             <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">
               1
@@ -150,10 +151,11 @@ export function FloatingActions() {
         </div>
       </div>
 
-      {/* Call Button - Mobile Only Floating */}
+      {/* Call Button - Mobile Only */}
       <div className="fixed bottom-6 right-6 z-50 lg:hidden">
         <a
           href={`tel:${siteConfig.phone}`}
+          onClick={() => trackPhoneCall("floating_mobile")}
           className="w-14 h-14 bg-[#C9A961] hover:bg-[#A8893F] text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95"
           aria-label="اتصل الآن"
         >
@@ -161,7 +163,6 @@ export function FloatingActions() {
         </a>
       </div>
 
-      {/* Back to Top */}
       <AnimatePresence>
         {showBackToTop && (
           <motion.button
@@ -179,3 +180,4 @@ export function FloatingActions() {
     </>
   );
 }
+

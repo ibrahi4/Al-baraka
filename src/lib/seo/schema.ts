@@ -4,22 +4,124 @@ export function generateLocalBusinessSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "MovingCompany",
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
+    alternateName: siteConfig.shortName,
     description: siteConfig.description,
     url: siteConfig.url,
+    logo: `${siteConfig.url}/logo.png`,
+    image: `${siteConfig.url}/og-image.jpg`,
     telephone: siteConfig.phone,
+    email: "info@albaraka-moving.com",
+    foundingDate: siteConfig.foundingYear.toString(),
     address: {
       "@type": "PostalAddress",
       streetAddress: "ميدان الجيش - العباسية",
       addressLocality: "القاهرة",
+      addressRegion: "القاهرة",
       addressCountry: "EG",
     },
-    areaServed: {
-      "@type": "Country",
-      name: "مصر",
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "30.0744",
+      longitude: "31.2789",
     },
-    foundingDate: siteConfig.foundingYear.toString(),
+    areaServed: [
+      {
+        "@type": "Country",
+        name: "مصر",
+      },
+      {
+        "@type": "City",
+        name: "القاهرة",
+      },
+      {
+        "@type": "City",
+        name: "الجيزة",
+      },
+      {
+        "@type": "City",
+        name: "الشيخ زايد",
+      },
+      {
+        "@type": "City",
+        name: "التجمع الخامس",
+      },
+      {
+        "@type": "City",
+        name: "مدينتي",
+      },
+      {
+        "@type": "City",
+        name: "6 أكتوبر",
+      },
+    ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
     priceRange: "$$",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "5000",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    sameAs: [
+      "https://www.facebook.com/albaraka",
+      "https://www.instagram.com/albaraka",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "خدمات نقل الأثاث",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "نقل الأثاث",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "فك وتركيب الأثاث",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "فك وتركيب التكييفات",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "تغليف الأثاث",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "ونش رفع الأثاث",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "نقل المقتنيات الحساسة",
+          },
+        },
+      ],
+    },
   };
 }
 
@@ -36,12 +138,17 @@ export function generateServiceSchema(
     url: serviceUrl,
     provider: {
       "@type": "MovingCompany",
+      "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.name,
       telephone: siteConfig.phone,
     },
     areaServed: {
       "@type": "Country",
       name: "مصر",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: serviceName,
     },
   };
 }

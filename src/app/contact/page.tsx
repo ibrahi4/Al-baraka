@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
-  Phone, MessageCircle, MapPin, Clock, Mail, Send,
-  CheckCircle2, Loader2, User, Building
+  Phone, MessageCircle, MapPin, Clock, Send,
+  CheckCircle2, Loader2, User
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { services } from "@/config/services";
-import { governorates } from "@/config/governorates";
+import { areas } from "@/config/areas";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -33,7 +33,6 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
 
-    // إرسال البيانات عبر WhatsApp
     const whatsappMessage = `
 *طلب جديد من الموقع*
 
@@ -51,7 +50,6 @@ export default function ContactPage() {
       setLoading(false);
       setSubmitted(true);
       setFormData({ name: "", phone: "", service: "", area: "", message: "" });
-      
       setTimeout(() => setSubmitted(false), 5000);
     }, 800);
   };
@@ -83,12 +81,7 @@ export default function ContactPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-16">
-            {/* Phone */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <a href={`tel:${siteConfig.phone}`} className="block h-full">
                 <Card className="h-full hover:border-[#C9A961] hover:shadow-xl transition-all group cursor-pointer">
                   <CardContent className="p-6 text-center">
@@ -103,19 +96,8 @@ export default function ContactPage() {
               </a>
             </motion.div>
 
-            {/* WhatsApp */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <a 
-                href={`https://wa.me/${siteConfig.whatsapp}`} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block h-full"
-              >
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+              <a href={`https://wa.me/${siteConfig.whatsapp}`} target="_blank" rel="noopener noreferrer" className="block h-full">
                 <Card className="h-full hover:border-[#C9A961] hover:shadow-xl transition-all group cursor-pointer bg-gradient-to-br from-green-50 to-white">
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-green-500 group-hover:bg-green-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all">
@@ -129,13 +111,7 @@ export default function ContactPage() {
               </a>
             </motion.div>
 
-            {/* Location */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
               <Card className="h-full hover:border-[#C9A961] hover:shadow-xl transition-all">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-[#1B2A41] text-[#C9A961] rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -151,20 +127,13 @@ export default function ContactPage() {
 
           {/* Form + Info */}
           <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
-            {/* Form */}
             <div className="lg:col-span-2">
               <Card className="border-gray-200 shadow-lg">
                 <CardContent className="p-6 md:p-8">
                   <div className="mb-6">
-                    <Badge variant="outline" className="border-[#C9A961] text-[#C9A961] mb-3">
-                      احصل على عرض سعر
-                    </Badge>
-                    <h2 className="text-2xl md:text-3xl font-black text-[#1B2A41] mb-2">
-                      اطلب خدمتك الآن
-                    </h2>
-                    <p className="text-gray-600 text-sm">
-                      املأ النموذج وسنتواصل معك خلال دقائق
-                    </p>
+                    <Badge variant="outline" className="border-[#C9A961] text-[#C9A961] mb-3">احصل على عرض سعر</Badge>
+                    <h2 className="text-2xl md:text-3xl font-black text-[#1B2A41] mb-2">اطلب خدمتك الآن</h2>
+                    <p className="text-gray-600 text-sm">املأ النموذج وسنتواصل معك خلال دقائق</p>
                   </div>
 
                   {submitted ? (
@@ -176,12 +145,8 @@ export default function ContactPage() {
                       <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-4">
                         <CheckCircle2 className="w-8 h-8" />
                       </div>
-                      <h3 className="text-xl font-bold text-[#1B2A41] mb-2">
-                        تم إرسال طلبك بنجاح!
-                      </h3>
-                      <p className="text-gray-600">
-                        سنتواصل معك على الواتساب خلال دقائق
-                      </p>
+                      <h3 className="text-xl font-bold text-[#1B2A41] mb-2">تم إرسال طلبك بنجاح!</h3>
+                      <p className="text-gray-600">سنتواصل معك على الواتساب خلال دقائق</p>
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -201,7 +166,6 @@ export default function ContactPage() {
                             />
                           </div>
                         </div>
-
                         <div>
                           <label className="block text-sm font-semibold text-[#1B2A41] mb-2">
                             رقم الهاتف <span className="text-red-500">*</span>
@@ -226,9 +190,9 @@ export default function ContactPage() {
                           <label className="block text-sm font-semibold text-[#1B2A41] mb-2">
                             الخدمة المطلوبة <span className="text-red-500">*</span>
                           </label>
-                          <Select 
-                            value={formData.service} 
-                            onValueChange={(value: string | null) => setFormData({ ...formData, service: value ?? "" })}
+                          <Select
+                            value={formData.service}
+                            onValueChange={(value) => setFormData({ ...formData, service: value })}
                             required
                           >
                             <SelectTrigger className="h-12">
@@ -243,24 +207,30 @@ export default function ContactPage() {
                             </SelectContent>
                           </Select>
                         </div>
-
                         <div>
                           <label className="block text-sm font-semibold text-[#1B2A41] mb-2">
                             المنطقة <span className="text-red-500">*</span>
                           </label>
-                          <Select 
-                            value={formData.area} 
-                            onValueChange={(value: string | null) => setFormData({ ...formData, area: value ?? "" })}
+                          <Select
+                            value={formData.area}
+                            onValueChange={(value) => setFormData({ ...formData, area: value })}
                             required
                           >
                             <SelectTrigger className="h-12">
                               <SelectValue placeholder="اختر منطقتك" />
                             </SelectTrigger>
                             <SelectContent>
-                              {governorates.map((g) => (
-                                <SelectItem key={g.slug} value={g.name}>
-                                  {g.name}
-                                </SelectItem>
+                              <SelectItem value="القاهرة" disabled className="font-bold text-[#1B2A41]">── القاهرة ──</SelectItem>
+                              {areas.filter(a => a.group === "cairo").map((a) => (
+                                <SelectItem key={a.slug} value={a.name}>{a.name}</SelectItem>
+                              ))}
+                              <SelectItem value="الجيزة" disabled className="font-bold text-[#1B2A41]">── الجيزة ──</SelectItem>
+                              {areas.filter(a => a.group === "giza").map((a) => (
+                                <SelectItem key={a.slug} value={a.name}>{a.name}</SelectItem>
+                              ))}
+                              <SelectItem value="المدن الجديدة" disabled className="font-bold text-[#1B2A41]">── المدن الجديدة ──</SelectItem>
+                              {areas.filter(a => a.group === "new-cities").map((a) => (
+                                <SelectItem key={a.slug} value={a.name}>{a.name}</SelectItem>
                               ))}
                             </SelectContent>
                           </Select>
@@ -268,9 +238,7 @@ export default function ContactPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-semibold text-[#1B2A41] mb-2">
-                          تفاصيل إضافية
-                        </label>
+                        <label className="block text-sm font-semibold text-[#1B2A41] mb-2">تفاصيل إضافية</label>
                         <Textarea
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -308,9 +276,8 @@ export default function ContactPage() {
               </Card>
             </div>
 
-            {/* Info Sidebar */}
+            {/* Sidebar */}
             <div className="space-y-6">
-              {/* Hours */}
               <Card className="bg-gradient-to-br from-[#1B2A41] to-[#0F1A2B] border-0 text-white">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
@@ -335,12 +302,9 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              {/* Why Us */}
               <Card className="border-gray-200">
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-[#1B2A41] mb-4">
-                    لماذا تختار البركة؟
-                  </h3>
+                  <h3 className="font-bold text-lg text-[#1B2A41] mb-4">لماذا تختار البركة؟</h3>
                   <div className="space-y-3">
                     {[
                       "خبرة 10+ سنوات",
@@ -360,19 +324,13 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              {/* Quick Call */}
               <Card className="bg-[#C9A961] border-0 text-white">
                 <CardContent className="p-6 text-center">
                   <Phone className="w-10 h-10 mx-auto mb-3" />
                   <h3 className="font-bold text-lg mb-2">للحجز السريع</h3>
                   <p className="text-white/90 text-sm mb-4">اتصل الآن واحصل على خصم</p>
-                  <Button 
-                    asChild 
-                    className="w-full bg-white text-[#C9A961] hover:bg-white/90 font-bold h-12"
-                  >
-                    <a href={`tel:${siteConfig.phone}`} dir="ltr">
-                      {siteConfig.phone}
-                    </a>
+                  <Button asChild className="w-full bg-white text-[#C9A961] hover:bg-white/90 font-bold h-12">
+                    <a href={`tel:${siteConfig.phone}`} dir="ltr">{siteConfig.phone}</a>
                   </Button>
                 </CardContent>
               </Card>
@@ -380,8 +338,36 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Map */}
+      <section className="bg-[#F8F6F2] py-12 md:py-16">
+        <div className="container-custom">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <Badge variant="outline" className="border-[#C9A961] text-[#C9A961] mb-4">
+              <MapPin className="w-3 h-3 ml-1.5" />
+              موقعنا
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-black text-[#1B2A41] mb-3">
+              زورنا في <span className="text-[#C9A961]">مقرنا الرئيسي</span>
+            </h2>
+            <p className="text-gray-600">العباسية - ميدان الجيش - القاهرة</p>
+          </div>
+          <Card className="overflow-hidden border-gray-200 shadow-xl">
+            <div className="relative aspect-[16/9] md:aspect-[21/9] w-full">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.8421073989166!2d31.273428!3d30.073611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583fa7e7a2f8c5%3A0x6e9f9c5c4d8e8b4a!2z2YXZitix2KfZhiDYp9mE2KzZiti0INin2YTYudio2KfYs9mK2Kkg2KfZhNmC2KfZh9ix2Kk!5e0!3m2!1sar!2seg!4v1700000000000!5m2!1sar!2seg"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0"
+              />
+            </div>
+          </Card>
+        </div>
+      </section>
     </>
   );
 }
-
-
