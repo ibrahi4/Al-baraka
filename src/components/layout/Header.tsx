@@ -14,12 +14,18 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // إضافة state للتحكم في القائمة
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // إغلاق القائمة عند تغيير الصفحة
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -125,7 +131,8 @@ export function Header() {
                 </a>
               </Button>
 
-              <Sheet>
+              {/* Sheet مع التحكم في الحالة */}
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger
                   className="inline-flex items-center justify-center h-10 w-10 rounded-md text-gray-700 hover:bg-gray-100 transition-colors"
                 >
@@ -156,7 +163,7 @@ export function Header() {
                     </p>
                   </div>
 
-                  {/* Navigation Links */}
+                  {/* Navigation Links - مع إغلاق القائمة */}
                   <nav className="p-4 flex flex-col gap-1">
                     {mainNav.map((item) => {
                       const active = pathname === item.href;
@@ -164,6 +171,7 @@ export function Header() {
                         <Link
                           key={item.href}
                           href={item.href}
+                          onClick={() => setIsOpen(false)} // إغلاق القائمة عند الضغط
                           className={cn(
                             "px-4 py-3 rounded-lg text-sm font-semibold transition-colors",
                             active
