@@ -7,6 +7,8 @@ import { featuredAreas } from "@/config/areas";
 import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
+  const validAreas = (featuredAreas || []).filter((a) => a && a.slug && a.name);
+
   return (
     <footer className="bg-[#1B2A41] text-white mt-16 lg:mt-24">
       <div className="container-custom">
@@ -44,21 +46,15 @@ export function Footer() {
             <div>
               <h4 className="font-bold text-[#C9A961] mb-4">مناطق الخدمة</h4>
               <ul className="space-y-2.5">
-                {featuredAreas.map((area) => (
+                {validAreas.map((area) => (
                   <li key={area.slug}>
-                    <Link
-                      href={`/areas/${area.slug}`}
-                      className="text-sm text-white/70 hover:text-[#C9A961] transition-colors"
-                    >
+                    <Link href={`/areas/${area.slug}`} className="text-sm text-white/70 hover:text-[#C9A961] transition-colors">
                       نقل أثاث {area.name}
                     </Link>
                   </li>
                 ))}
-                <li>
-                  <Link
-                    href="/areas"
-                    className="text-sm text-[#C9A961] hover:text-[#A8893F] transition-colors font-semibold"
-                  >
+                <li key="all-areas-link">
+                  <Link href="/areas" className="text-sm text-[#C9A961] hover:text-[#A8893F] transition-colors font-semibold">
                     عرض كل المناطق ←
                   </Link>
                 </li>

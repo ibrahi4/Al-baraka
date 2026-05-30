@@ -304,7 +304,7 @@ export const areaGroups = {
 export const vipAreas = areas.filter((a) => a.isVip);
 
 // المناطق المميزة في الصفحة الرئيسية
-export const featuredAreas = [
+const featuredSlugs = [
   "sheikh-zayed",
   "tagamoa-khames",
   "madinaty",
@@ -312,3 +312,6 @@ export const featuredAreas = [
   "new-capital",
   "new-cairo",
 ];
+
+export const featuredAreas = areas.filter((a) => featuredSlugs.includes(a.slug));
+
