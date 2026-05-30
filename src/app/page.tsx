@@ -108,8 +108,8 @@ export default function HomePage() {
                 </Button>
               </div>
 
-              <div className="rounded-2xl border border-[#C9A961]/30 bg-gradient-to-r from-[#C9A961]/15 to-white/5 backdrop-blur-sm p-4 md:p-5 mb-8 text-right">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="rounded-2xl border border-[#C9A961]/30 bg-gradient-to-r from-[#C9A961]/15 to-white/5 backdrop-blur-sm p-4 md:p-5 mb-8 text-center lg:text-right">
+                <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4">
                   <div className="w-16 h-16 rounded-2xl bg-[#C9A961] text-white flex items-center justify-center shadow-lg shrink-0">
                     <span className="text-2xl font-black">30%</span>
                   </div>
@@ -563,4 +563,5 @@ export default function HomePage() {
     </>
   );
 }
+
 
