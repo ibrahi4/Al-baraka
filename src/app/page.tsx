@@ -50,7 +50,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center lg:text-right order-2 lg:order-1"
+              className="text-center lg:text-right order-1 lg:order-1"
             >
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-5">
                 <Badge className="bg-[#C9A961]/20 text-[#C9A961] border-[#C9A961]/30 hover:bg-[#C9A961]/30 px-4 py-1.5">
@@ -161,7 +161,7 @@ export default function HomePage() {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="order-1 lg:order-2"
+              className="order-2 lg:order-2"
             >
               <div className="relative max-w-md mx-auto lg:max-w-none">
                 <div className="absolute -top-4 -left-3 md:-top-5 md:-left-5 z-20 rounded-2xl bg-[#C9A961] text-white shadow-2xl px-4 py-3 border border-white/20">
@@ -563,3 +563,4 @@ export default function HomePage() {
     </>
   );
 }
+
