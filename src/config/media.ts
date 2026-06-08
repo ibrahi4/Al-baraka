@@ -1,86 +1,193 @@
+// data/media.ts
+import { StaticImageData } from 'next/image';
+
+// ============================
+// 📸 GALLERY IMAGES
+// ============================
 export const gallery = [
-  {
-    id: 1,
-    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-    alt: "نقل أثاث منزلي احترافي",
-    category: "نقل منازل",
-  },
+
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    src: "/images/gallery/taghleef.webp",
     alt: "تغليف احترافي للأثاث",
     category: "تغليف",
+    width: 800,
+    height: 600,
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
+    src: "/images/gallery/fak-tarkeeb.webp",
     alt: "فك وتركيب غرف النوم",
     category: "فك وتركيب",
+    width: 800,
+    height: 600,
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1601760562234-9814eea6663a?w=800&q=80",
+    src: "/images/gallery/ostol-naql.webp",
     alt: "سيارات نقل مجهزة",
     category: "أسطول النقل",
+    width: 800,
+    height: 600,
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80",
+    src: "/images/gallery/naql-fakher.webp",
     alt: "نقل أثاث فاخر",
     category: "نقل فاخر",
+    width: 800,
+    height: 600,
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80",
+    src: "/images/gallery/fareq-3amal.webp",
     alt: "فريق عمل محترف",
     category: "فرق العمل",
+    width: 800,
+    height: 600,
   },
   {
     id: 7,
-    src: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&q=80",
+    src: "/images/gallery/tarkeeb.webp",
     alt: "تجهيز المنزل الجديد",
     category: "تركيب",
+    width: 800,
+    height: 600,
   },
   {
     id: 8,
-    src: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    src: "/images/gallery/moqtaniat-hassasa.webp",
     alt: "نقل آمن للمقتنيات الحساسة",
     category: "مقتنيات حساسة",
+    width: 800,
+    height: 600,
   },
 ];
 
+// ============================
+// 🎥 VIDEOS
+// ============================
 export const videos = [
   {
     id: 1,
-    src: "https://videos.pexels.com/video-files/4489747/4489747-uhd_2560_1440_25fps.mp4",
-    thumbnail: "https://images.pexels.com/videos/4489747/free-video-4489747.jpg?w=800",
+    src: "/videos/naql-athath-kamil.mp4",
+    thumbnail: "/images/video-thumbnails/naql-kamil-thumb.webp",
     title: "عملية نقل أثاث كاملة",
     description: "مشاهدة كيفية تنفيذنا لعملية نقل احترافية من البداية للنهاية",
+    width: 1280,
+    height: 720,
   },
   {
     id: 2,
-    src: "https://videos.pexels.com/video-files/7464726/7464726-uhd_2560_1440_25fps.mp4",
-    thumbnail: "https://images.pexels.com/videos/7464726/pexels-photo-7464726.jpeg?w=800",
+    src: "/videos/taghleef-e7terafi.mp4",
+    thumbnail: "/images/video-thumbnails/taghleef-thumb.webp",
     title: "تغليف احترافي للأثاث",
     description: "خبراؤنا في تغليف الأثاث بمواد عالية الجودة",
+    width: 1280,
+    height: 720,
   },
   {
     id: 3,
-    src: "https://videos.pexels.com/video-files/4488746/4488746-uhd_2560_1440_25fps.mp4",
-    thumbnail: "https://images.pexels.com/videos/4488746/free-video-4488746.jpg?w=800",
+    src: "/videos/fak-tarkeeb.mp4",
+    thumbnail: "/images/video-thumbnails/fak-tarkeeb-thumb.webp",
     title: "فك وتركيب الأثاث",
     description: "فنيون متخصصون في فك وتركيب جميع أنواع الأثاث",
+    width: 1280,
+    height: 720,
   },
 ];
 
-export const heroImage = "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1920&q=90";
-
-// صور خلفيات لكل خدمة
-export const serviceBackgrounds: Record<string, string> = {
-  "naql-athath": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=85",
-  "fak-tarkeeb-athath": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=85",
-  "fak-tarkeeb-takyifat": "https://images.unsplash.com/photo-1631545806609-ed51e1c4c5b4?w=1200&q=85",
-  "taghleef-athath": "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=1200&q=85",
-  "wensh-raf3-athath": "https://images.unsplash.com/photo-1597844808175-2c9aa45f5d4f?w=1200&q=85",
-  "naql-moqtaniat-hassasa": "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1200&q=85",
+// ============================
+// 🖼️ HERO IMAGE
+// ============================
+export const heroImage = {
+  src: "/images/hero/hero-main.webp",
+  alt: "شركة البركة لنقل العفش",
+  width: 1920,
+  height: 1080,
 };
+
+// ============================
+// 🎨 SERVICE BACKGROUNDS
+// ============================
+export const serviceBackgrounds: Record<string, {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}> = {
+  "naql-athath": {
+    src: "/images/services/bg-naql-athath.webp",
+    alt: "خلفية خدمة نقل الأثاث",
+    width: 1200,
+    height: 800,
+  },
+  "fak-tarkeeb-athath": {
+    src: "/images/services/bg-fak-tarkeeb.webp",
+    alt: "خلفية خدمة فك وتركيب الأثاث",
+    width: 1200,
+    height: 800,
+  },
+  "fak-tarkeeb-takyifat": {
+    src: "/images/services/bg-takyifat.webp",
+    alt: "خلفية خدمة فك وتركيب التكييفات",
+    width: 1200,
+    height: 800,
+  },
+  "taghleef-athath": {
+    src: "/images/services/bg-taghleef.webp",
+    alt: "خلفية خدمة تغليف الأثاث",
+    width: 1200,
+    height: 800,
+  },
+  "wensh-raf3-athath": {
+    src: "/images/services/bg-wensh-raf3.webp",
+    alt: "خلفية خدمة ونش رفع الأثاث",
+    width: 1200,
+    height: 800,
+  },
+  "naql-moqtaniat-hassasa": {
+    src: "/images/services/bg-moqtaniat.webp",
+    alt: "خلفية خدمة نقل المقتنيات الحساسة",
+    width: 1200,
+    height: 800,
+  },
+};
+
+// ============================
+// 📁 FOLDER STRUCTURE
+// ============================
+/*
+public/
+├── images/
+│   ├── gallery/
+│   │   ├── naql-manazil.webp
+│   │   ├── taghleef.webp
+│   │   ├── fak-tarkeeb.webp
+│   │   ├── ostol-naql.webp
+│   │   ├── naql-fakher.webp
+│   │   ├── fareq-3amal.webp
+│   │   ├── tarkeeb.webp
+│   │   └── moqtaniat-hassasa.webp
+│   │
+│   ├── video-thumbnails/
+│   │   ├── naql-kamil-thumb.webp
+│   │   ├── taghleef-thumb.webp
+│   │   └── fak-tarkeeb-thumb.webp
+│   │
+│   ├── hero/
+│   │   └── hero-main.webp
+│   │
+│   └── services/
+│       ├── bg-naql-athath.webp
+│       ├── bg-fak-tarkeeb.webp
+│       ├── bg-takyifat.webp
+│       ├── bg-taghleef.webp
+│       ├── bg-wensh-raf3.webp
+│       └── bg-moqtaniat.webp
+│
+└── videos/
+    ├── naql-athath-kamil.mp4
+    ├── taghleef-e7terafi.mp4
+    └── fak-tarkeeb.mp4
+*/
