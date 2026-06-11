@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Cairo } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { generateLocalBusinessSchema } from "@/lib/seo/schema";
@@ -7,6 +8,22 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 import { GoogleAnalytics, GoogleTagManager } from "@/components/analytics/GoogleAnalytics";
 
+// ============================
+// تحسين الخط العربي
+// ============================
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-cairo",
+  fallback: ["system-ui", "Arial", "sans-serif"],
+  adjustFontFallback: true,
+});
+
+// ============================
+// METADATA
+// ============================
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -84,12 +101,13 @@ export const metadata: Metadata = {
       { url: "/favicon.ico" },
       { url: "/icon.png", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-icon.png" },
-    ],
+    apple: [{ url: "/apple-icon.png" }],
   },
 };
 
+// ============================
+// VIEWPORT
+// ============================
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
@@ -100,6 +118,9 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+// ============================
+// ROOT LAYOUT
+// ============================
 export default function RootLayout({
   children,
 }: {
@@ -108,18 +129,35 @@ export default function RootLayout({
   const schema = generateLocalBusinessSchema();
 
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="ar" dir="rtl" className={cairo.variable}>
       <head>
+        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
+
+        {/* Preload Hero Image - مهم جداً لـ LCP */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/services/hero-main.webp"
+          type="image/webp"
+          fetchPriority="high"
+        />
+
+        {/* DNS Prefetch & Preconnect */}
+        <link rel="dns-prefetch" href="https://wa.me" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://images.unsplash.com" />
+
+        {/* GTM */}
         <GoogleTagManager />
       </head>
-      <body suppressHydrationWarning>
+      <body className={cairo.className} suppressHydrationWarning>
         <GoogleAnalytics />
         <Header />
         <main>{children}</main>
