@@ -10,6 +10,7 @@ import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { trackPhoneCall, trackWhatsApp, trackQuoteRequest } from "@/lib/analytics/events";
 
 export function Header() {
   const pathname = usePathname();
@@ -45,6 +46,7 @@ export function Header() {
             </div>
             <a 
               href={`tel:${siteConfig.phone}`} 
+              onClick={() => trackPhoneCall("header_desktop")}
               className="flex items-center gap-2 hover:text-[#C9A961] transition-colors font-semibold"
             >
               <Phone className="w-3.5 h-3.5" />
@@ -112,6 +114,10 @@ export function Header() {
                   href={`https://wa.me/${siteConfig.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    trackWhatsApp("header_desktop");
+                    trackQuoteRequest("header_desktop");
+                  }}
                 >
                   <MessageCircle className="w-4 h-4 ml-1" />
                   طلب عرض سعر
@@ -126,7 +132,10 @@ export function Header() {
                 size="icon"
                 className="bg-[#C9A961] hover:bg-[#A8893F] text-white shadow-md h-10 w-10"
               >
-                <a href={`tel:${siteConfig.phone}`}>
+                <a 
+                  href={`tel:${siteConfig.phone}`}
+                  onClick={() => trackPhoneCall("header_mobile")}
+                >
                   <Phone className="w-4 h-4" />
                 </a>
               </Button>
@@ -191,7 +200,10 @@ export function Header() {
                       asChild 
                       className="w-full bg-[#1B2A41] hover:bg-[#0F1A2B] text-white"
                     >
-                      <a href={`tel:${siteConfig.phone}`}>
+                      <a 
+                        href={`tel:${siteConfig.phone}`}
+                        onClick={() => trackPhoneCall("header_mobile")}
+                      >
                         <Phone className="w-4 h-4 ml-2" />
                         اتصل الآن
                       </a>
@@ -204,6 +216,7 @@ export function Header() {
                         href={`https://wa.me/${siteConfig.whatsapp}`}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackWhatsApp("header_mobile")}
                       >
                         <MessageCircle className="w-4 h-4 ml-2" />
                         واتساب

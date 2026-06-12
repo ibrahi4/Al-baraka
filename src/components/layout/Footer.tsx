@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, MessageCircle, Clock } from "lucide-react";
@@ -5,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { services } from "@/config/services";
 import { featuredAreas } from "@/config/areas";
 import { Separator } from "@/components/ui/separator";
+import { trackPhoneCall, trackWhatsApp } from "@/lib/analytics/events";
 
 export function Footer() {
   const validAreas = (featuredAreas || []).filter((a) => a && a.slug && a.name);
@@ -70,13 +73,24 @@ export function Footer() {
                 </li>
                 <li className="flex items-center gap-3 text-sm text-white/70">
                   <Phone className="w-4 h-4 text-[#C9A961] shrink-0" />
-                  <a href={`tel:${siteConfig.phone}`} dir="ltr" className="hover:text-[#C9A961] transition-colors">
+                  <a 
+                    href={`tel:${siteConfig.phone}`} 
+                    dir="ltr" 
+                    onClick={() => trackPhoneCall("footer")}
+                    className="hover:text-[#C9A961] transition-colors"
+                  >
                     {siteConfig.phone}
                   </a>
                 </li>
                 <li className="flex items-center gap-3 text-sm text-white/70">
                   <MessageCircle className="w-4 h-4 text-[#C9A961] shrink-0" />
-                  <a href={`https://wa.me/${siteConfig.whatsapp}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#C9A961] transition-colors">
+                  <a 
+                    href={`https://wa.me/${siteConfig.whatsapp}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    onClick={() => trackWhatsApp("footer")}
+                    className="hover:text-[#C9A961] transition-colors"
+                  >
                     تواصل عبر واتساب
                   </a>
                 </li>

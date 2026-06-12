@@ -3,6 +3,7 @@
 import Script from "next/script";
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || "";
+const GADS_ID = process.env.NEXT_PUBLIC_GADS_ID || "";
 
 export function GoogleAnalytics() {
   if (!GA_TRACKING_ID) return null;
@@ -24,6 +25,7 @@ export function GoogleAnalytics() {
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
+            ${GADS_ID ? `gtag('config', '${GADS_ID}');` : ""}
           `,
         }}
       />
@@ -33,7 +35,6 @@ export function GoogleAnalytics() {
 
 export function GoogleTagManager() {
   const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "";
-  
   if (!GTM_ID) return null;
 
   return (
@@ -53,33 +54,5 @@ export function GoogleTagManager() {
   );
 }
 
-// تتبع الأحداث المخصصة
-export const trackEvent = (
-  action: string,
-  category: string,
-  label?: string,
-  value?: number
-) => {
-  if (typeof window !== "undefined" && (window as any).gtag) {
-    (window as any).gtag("event", action, {
-      event_category: category,
-      event_label: label,
-      value: value,
-    });
-  }
-};
-
-// تتبع المكالمات
-export const trackPhoneCall = (source: string = "unknown") => {
-  trackEvent("phone_call", "engagement", source);
-};
-
-// تتبع رسائل واتساب
-export const trackWhatsApp = (source: string = "unknown") => {
-  trackEvent("whatsapp_click", "engagement", source);
-};
-
-// تتبع إرسال النموذج
-export const trackFormSubmit = (formName: string) => {
-  trackEvent("form_submit", "conversion", formName);
-};
+// Re-export الدوال من الملف الجديد للتوافق مع الكود القديم
+export { trackPhoneCall, trackWhatsApp, trackFormSubmit } from "@/lib/analytics/events";

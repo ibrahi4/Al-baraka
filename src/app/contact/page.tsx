@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { 
   Phone, MessageCircle, MapPin, Clock, Send,
@@ -17,8 +18,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { 
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue 
 } from "@/components/ui/select";
+import { 
+  trackPhoneCall, 
+  trackWhatsApp, 
+  trackFormSubmit, 
+  trackQuoteRequest 
+} from "@/lib/analytics/events";
 
 export default function ContactPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -32,6 +40,15 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // ============================
+    // تتبع التحويلات (Analytics + Google Ads)
+    // ============================
+    trackFormSubmit("contact_page_form", {
+      service: formData.service,
+      area: formData.area,
+    });
+    trackQuoteRequest("contact_page");
 
     const whatsappMessage = `
 *طلب جديد من الموقع*
@@ -50,7 +67,11 @@ export default function ContactPage() {
       setLoading(false);
       setSubmitted(true);
       setFormData({ name: "", phone: "", service: "", area: "", message: "" });
-      setTimeout(() => setSubmitted(false), 5000);
+      
+      // توجيه لصفحة الشكر بعد 2 ثانية
+      setTimeout(() => {
+        router.push("/thank-you");
+      }, 2000);
     }, 800);
   };
 
@@ -82,7 +103,11 @@ export default function ContactPage() {
         <div className="container-custom">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-16">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-              <a href={`tel:${siteConfig.phone}`} className="block h-full">
+              <a 
+                href={`tel:${siteConfig.phone}`} 
+                onClick={() => trackPhoneCall("contact_page")}
+                className="block h-full"
+              >
                 <Card className="h-full hover:border-[#C9A961] hover:shadow-xl transition-all group cursor-pointer">
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-[#1B2A41] group-hover:bg-[#C9A961] text-[#C9A961] group-hover:text-white rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all">
@@ -97,7 +122,13 @@ export default function ContactPage() {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-              <a href={`https://wa.me/${siteConfig.whatsapp}`} target="_blank" rel="noopener noreferrer" className="block h-full">
+              <a 
+                href={`https://wa.me/${siteConfig.whatsapp}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => trackWhatsApp("contact_page")}
+                className="block h-full"
+              >
                 <Card className="h-full hover:border-[#C9A961] hover:shadow-xl transition-all group cursor-pointer bg-gradient-to-br from-green-50 to-white">
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-green-500 group-hover:bg-green-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 transition-all">
@@ -147,6 +178,7 @@ export default function ContactPage() {
                       </div>
                       <h3 className="text-xl font-bold text-[#1B2A41] mb-2">تم إرسال طلبك بنجاح!</h3>
                       <p className="text-gray-600">سنتواصل معك على الواتساب خلال دقائق</p>
+                      <p className="text-sm text-gray-500 mt-2">جاري التوجيه...</p>
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -330,7 +362,13 @@ export default function ContactPage() {
                   <h3 className="font-bold text-lg mb-2">للحجز السريع</h3>
                   <p className="text-white/90 text-sm mb-4">اتصل الآن واحصل على خصم</p>
                   <Button asChild className="w-full bg-white text-[#C9A961] hover:bg-white/90 font-bold h-12">
-                    <a href={`tel:${siteConfig.phone}`} dir="ltr">{siteConfig.phone}</a>
+                    <a 
+                      href={`tel:${siteConfig.phone}`} 
+                      dir="ltr"
+                      onClick={() => trackPhoneCall("contact_page")}
+                    >
+                      {siteConfig.phone}
+                    </a>
                   </Button>
                 </CardContent>
               </Card>
@@ -371,4 +409,3 @@ export default function ContactPage() {
     </>
   );
 }
-
