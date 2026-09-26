@@ -6,7 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 
-const GTM_ID = "GTM-PSZQPBJ6";
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-PSZQPBJ6";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
